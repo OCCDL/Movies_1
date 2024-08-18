@@ -217,6 +217,6 @@ async def obtener_recomendacion(titulo: str, top_n: int = 5):
 if __name__ == "__main__":
     # Si el script se ejecuta directamente, utiliza el servidor ASGI 'uvicorn' para servir a la aplicación FastAPI. Se ejecuta en la máquina local (host="0.0.0.0") en el puerto 8000.
     # 'reload=True' habilita la recarga en caliente, lo que significa que el servidor se actualizará automáticamente cada vez que se realice un cambio en el script.
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=10000, reload=True)
     
 
