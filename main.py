@@ -148,13 +148,17 @@ async def get_actor(nombre_actor: str):
     
 @app.get('/get_director/{nombre_director}')
 def get_director(nombre_director: str) -> Dict[str, Any]:
-    director_df = director_df.lower()
-    # Filtrar el DataFrame por el nombre del director
-    director_df = data[data['director_name'].str.contains(nombre_director, na=False)]
+    # Convertir a minúsculas el nombre del director ingresado por el usuario
+    nombre_director_lower = nombre_director.lower()
     
+    # Filtrar el DataFrame por el nombre del director ignorando mayúsculas/minúsculas
+    director_df = data[data['director_name'].str.contains(nombre_director_lower, case=False, na=False)]
+    
+    # Verificar si el DataFrame filtrado está vacío
     if director_df.empty:
         return {"success": False, "message": "No se encontraron películas para el director especificado."}
     
+    # Crear una lista de películas con los detalles requeridos
     peliculas = []
     for _, row in director_df.iterrows():
         pelicula = {
@@ -166,12 +170,12 @@ def get_director(nombre_director: str) -> Dict[str, Any]:
         }
         peliculas.append(pelicula)
     
+    # Retornar el resultado en formato JSON
     return {
         "success": True,
         "director": nombre_director,
         "peliculas": peliculas
     }
-    
     
 @app.get("/recomendacion/{titulo}")
 async def obtener_recomendacion(titulo: str, top_n: int = 5):
