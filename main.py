@@ -148,6 +148,7 @@ async def get_actor(nombre_actor: str):
     
 @app.get('/get_director/{nombre_director}')
 def get_director(nombre_director: str) -> Dict[str, Any]:
+    director_df = director_df.lower()
     # Filtrar el DataFrame por el nombre del director
     director_df = data[data['director_name'].str.contains(nombre_director, na=False)]
     
